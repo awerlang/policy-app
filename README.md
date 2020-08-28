@@ -24,7 +24,7 @@ This hiring project is intended to gauge a developer's ability to both work with
 
 Technical prowess is a good thing but, by itself, is not enough to earn a spot on our team.
 
-Do not squash or
+Do not squash or rebase your commits.
 
 ###  1.2. <a name='Instructions'></a>Instructions
 
