@@ -3,7 +3,7 @@
   "author": "André Werlang",
   "main": "index.js",
   "scripts": {
-    "prebuild": "rpm run lint",
+    "prebuild": "npm run lint",
     "build": "tsc",
     "start": "node ./build",
     "predev": "tsc; tsc -w &",
