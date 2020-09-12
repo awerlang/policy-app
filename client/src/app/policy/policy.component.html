@@ -1,0 +1,39 @@
+<form class="policy-form" [formGroup]="policyForm" (ngSubmit)="onSubmit()">
+    <table class="full-width" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="full-width">
+                    <mat-label>Policy number</mat-label>
+                    <input matInput required formControlName="policyNumber">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="full-width">
+                    <mat-label>Status</mat-label>
+                    <input matInput formControlName="status">
+                </mat-form-field>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Effective date</mat-label>
+                    <input matInput [matDatepicker]="picker" required formControlName="effectiveDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="full-width">
+                    <mat-label>Annual premium</mat-label>
+                    <input matInput type="number" required formControlName="annualPremium">
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+    <div class="actions">
+        <button mat-button color="warn" type="button">Delete</button>
+        <button mat-raised-button color="primary" [disabled]="!policyForm.valid">Save</button>
+    </div>
+</form>
