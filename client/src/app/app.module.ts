@@ -9,16 +9,21 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatSortModule } from '@angular/material/sort'
+import { MatTableModule } from '@angular/material/table'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PolicyComponent } from './policy/policy.component';
 import { ApiService } from './services/api.service';
+import { PolicyListComponent } from './policy-list/policy-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PolicyComponent
+    PolicyComponent,
+    PolicyListComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +36,9 @@ import { ApiService } from './services/api.service';
     MatInputModule,
     MatNativeDateModule,
     MatSnackBarModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
     AppRoutingModule
   ],
   providers: [

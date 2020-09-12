@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators'
 
 import { environment } from 'src/environments/environment';
@@ -35,8 +35,12 @@ export class ApiService {
   }
 
   private request<T>(method: string, path: string, body?: T) {
-    return this.http.request(method, `${host}/${path}`, { body })
+    return this.http.request<T>(method, `${host}/${path}`, { body })
       .pipe(catchError(this.handleError));
+  }
+
+  get<T>(path: string): Observable<T> {
+    return this.request<T>('GET', path);
   }
 
   post<T>(path: string, body: T) {
