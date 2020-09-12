@@ -15,7 +15,8 @@
   "dependencies": {
     "debug": "^4.1.1",
     "express": "^5.0.0-alpha.8",
-    "helmet": "^4.1.1"
+    "helmet": "^4.1.1",
+    "pg-promise": "^10.6.1"
   },
   "devDependencies": {
     "@tsconfig/node12": "^1.0.7",
