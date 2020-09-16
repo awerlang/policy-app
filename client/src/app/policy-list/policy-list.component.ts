@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -17,31 +17,26 @@ export interface PolicyData {
   templateUrl: './policy-list.component.html',
   styleUrls: ['./policy-list.component.scss']
 })
-export class PolicyListComponent implements AfterViewInit, OnInit {
+export class PolicyListComponent implements OnInit {
 
   displayedColumns: string[] = ['number', 'annual_premium', 'effective_date', 'status'];
-  dataSource: MatTableDataSource<PolicyData>;
+  dataSource: MatTableDataSource<PolicyData> = new MatTableDataSource();
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  @ViewChild(MatSort) sort: MatSort | null = null;
 
   constructor(private api: ApiService) {
   }
 
-  ngAfterViewInit() {
-  }
-
   ngOnInit(): void {
-    this.api.get('policy').subscribe({
-      next(value: any[]) {
-        this.dataSource = new MatTableDataSource(value);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      }
+    this.api.get<PolicyData[]>('policy').subscribe(value => {
+      this.dataSource = new MatTableDataSource(value);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 

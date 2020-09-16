@@ -20,27 +20,28 @@ export class PolicyComponent implements OnInit {
     private api: ApiService
   ) { }
 
-  policyForm = new FormGroup({
+  fields = {
     id: new FormControl(),
     policyNumber: new FormControl(),
     status: new FormControl({ value: 'New', disabled: true }),
     effectiveDate: new FormControl(),
     annualPremium: new FormControl(),
-  })
+  }
+  policyForm = new FormGroup(this.fields)
 
   ngOnInit(): void {
     const tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate() + 1)
-    this.policyForm.controls['effectiveDate'].setValue(tomorrow)
+    this.fields.effectiveDate.setValue(tomorrow)
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (!this.policyForm.valid) {
       return
     }
     this.api.post('policy', this.policyForm.value).subscribe({
       error: (error: ApiError) => {
-        this.snackBar.open(error.message, null, {
+        this.snackBar.open(error.message, undefined, {
           duration: 4000,
         });
       }

@@ -16,7 +16,6 @@
     "deprecation": {
       "severity": "warning"
     },
-    "eofline": true,
     "import-blacklist": [
       true,
       "rxjs/Rx"
@@ -43,6 +42,7 @@
         ]
       }
     ],
+    "no-any": true,
     "no-console": [
       true,
       "debug",
@@ -68,11 +68,6 @@
       true,
       "single"
     ],
-    "semicolon": {
-      "options": [
-        "always"
-      ]
-    },
     "space-before-function-paren": {
       "options": {
         "anonymous": "never",

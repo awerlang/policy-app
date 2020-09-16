@@ -16,11 +16,19 @@ describe('PolicyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, HttpClientTestingModule, MatSnackBarModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, NoopAnimationsModule],
+      imports: [
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        MatSnackBarModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NoopAnimationsModule
+      ],
       providers: [ApiService],
-      declarations: [ PolicyComponent ]
+      declarations: [PolicyComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
