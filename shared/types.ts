@@ -1,7 +1,7 @@
 export type PolicyStatus = 'active' | 'cancelled'
 
 export interface PolicyItem {
-    id: number
+    id?: number
     policyNumber: string
     annualPremium: number
     effectiveDate: string
