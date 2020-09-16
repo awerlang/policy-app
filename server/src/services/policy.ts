@@ -1,18 +1,38 @@
+import { PolicyListItem, PolicyItem, PolicyStatus } from '../shared/types'
 import { db } from '../data'
 
-interface Policy {
-    id: number
-    policyNumber: string
-    annualPremium: number
-    effectiveDate: string
+interface PolicyData {
+    'id': number
+    'number': string
+    'annual_premium': number
+    'effective_date': string
+    'states': {
+        status: PolicyStatus
+        reason: string
+        created: string
+    }[]
+    'created': string
+    'updated': string
 }
 
 export default {
-    async list () {
-        return db.manyOrNone('SELECT * FROM "Policy"')
+    async list() {
+        const items = await db.manyOrNone<PolicyData>('SELECT * FROM "Policy"')
+        return items.map(item => {
+            const states = item.states.sort((a, b) => a.created.localeCompare(b.created))
+            const listItem: PolicyListItem = {
+                id: item.id,
+                policyNumber: item.number,
+                annualPremium: item.annual_premium,
+                effectiveDate: item.effective_date,
+                states: states,
+                status: states.length ? states[states.length - 1].status : ''
+            }
+            return listItem
+        })
     },
 
-    async create (item: Policy) {
+    async create(item: PolicyItem) {
         const now = new Date().toISOString()
         const states = [
             {
@@ -27,7 +47,7 @@ export default {
             [item.policyNumber, item.annualPremium, item.effectiveDate, states, now, now])
     },
 
-    async update (item: Policy) {
+    async update(item: PolicyItem) {
         const now = new Date().toISOString()
         const states = [
             {
@@ -42,7 +62,7 @@ export default {
             [item.policyNumber, item.annualPremium, item.effectiveDate, states, now, item.id])
     },
 
-    async delete (id: number) {
+    async delete(id: number) {
         return db.one(
             'DELETE FROM "Policy" WHERE id = $1',
             [id])

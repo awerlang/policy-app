@@ -2,15 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ApiService } from '../services/api.service';
 
-export interface PolicyData {
-  id: number
-  number: string
-  annual_premium: number
-  effective_date: string
-  status: string
-}
+import { PolicyListItem } from 'src/shared/types';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-policy-list',
@@ -19,8 +13,8 @@ export interface PolicyData {
 })
 export class PolicyListComponent implements OnInit {
 
-  displayedColumns: string[] = ['number', 'annual_premium', 'effective_date', 'status'];
-  dataSource: MatTableDataSource<PolicyData> = new MatTableDataSource();
+  displayedColumns: string[] = ['policyNumber', 'annualPremium', 'effectiveDate', 'status'];
+  dataSource: MatTableDataSource<PolicyListItem> = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   @ViewChild(MatSort) sort: MatSort | null = null;
@@ -29,7 +23,7 @@ export class PolicyListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.api.get<PolicyData[]>('policy').subscribe(value => {
+    this.api.get<PolicyListItem[]>('policy').subscribe(value => {
       this.dataSource = new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
