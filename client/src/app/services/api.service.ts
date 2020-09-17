@@ -46,4 +46,8 @@ export class ApiService {
   post<T>(path: string, body: T): Observable<T> {
     return this.request<T>('POST', path, body);
   }
+
+  delete<T>(path: string): Observable<T> {
+    return this.request<T>('DELETE', path);
+  }
 }

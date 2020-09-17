@@ -22,4 +22,8 @@ export class PolicyService {
   save(policy: PolicyItem): Observable<PolicyItem> {
     return this.api.post('policy', policy)
   }
+
+  delete(policy: PolicyItem): Observable<PolicyItem> {
+    return this.api.delete(`policy/${policy.id}`)
+  }
 }

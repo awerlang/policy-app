@@ -33,7 +33,7 @@
         </tr>
     </table>
     <div class="actions">
-        <button mat-button color="warn" type="button">Delete</button>
+        <button mat-button color="warn" type="button" (click)="onDelete()">Delete</button>
         <button mat-raised-button color="primary" [disabled]="!policyForm.valid">Save</button>
     </div>
 </form>

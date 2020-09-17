@@ -72,7 +72,7 @@ export default {
 
     async delete(id: number) {
         return db.one(
-            'DELETE FROM "Policy" WHERE id = $1',
+            'DELETE FROM "Policy" WHERE id = $1 RETURNING id',
             [id])
     }
 }

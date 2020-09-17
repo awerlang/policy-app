@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { mergeMap } from 'rxjs/operators';
 
-import { PolicyItem } from 'src/shared/types';
 import { PolicyService } from '../services/policy.service';
 
 interface ApiError {
@@ -60,6 +60,27 @@ export class PolicyComponent implements OnInit {
         });
       }
     })
+  }
+
+  onDelete(): void {
+    const policyNumber: number = this.fields.policyNumber.value
+    const bar = this.snackBar.open(
+      `Are you sure you want to delete policy ${policyNumber}?`, 'Yes, Delete',
+      {
+        duration: 5000,
+        verticalPosition: 'top'
+      })
+    bar.onAction().pipe(mergeMap(() => this.api.delete(this.policyForm.value)))
+      .subscribe({
+        next: () => {
+          this.router.navigate(['policies'])
+        },
+        error: (error: ApiError) => {
+          this.snackBar.open(error.message, undefined, {
+            duration: 4000,
+          });
+        }
+      })
   }
 
 }
