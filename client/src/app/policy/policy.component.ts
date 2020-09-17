@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { ApiService } from '../services/api.service';
+import { PolicyItem } from 'src/shared/types';
+import { PolicyService } from '../services/policy.service';
 
 interface ApiError {
   message: string
@@ -16,8 +18,9 @@ interface ApiError {
 export class PolicyComponent implements OnInit {
 
   constructor(
+    private route: ActivatedRoute,
     private snackBar: MatSnackBar,
-    private api: ApiService
+    private api: PolicyService
   ) { }
 
   fields = {
@@ -33,13 +36,20 @@ export class PolicyComponent implements OnInit {
     const tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate() + 1)
     this.fields.effectiveDate.setValue(tomorrow)
+
+    this.route.data
+      .subscribe({
+        next: ({ policy }) => {
+          this.policyForm.setValue(policy)
+        },
+      })
   }
 
   onSubmit(): void {
     if (!this.policyForm.valid) {
       return
     }
-    this.api.post('policy', this.policyForm.value).subscribe({
+    this.api.save(this.policyForm.value).subscribe({
       error: (error: ApiError) => {
         this.snackBar.open(error.message, undefined, {
           duration: 4000,

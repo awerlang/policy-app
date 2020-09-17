@@ -8,10 +8,11 @@ export interface PolicyItem {
 }
 
 export interface PolicyListItem extends PolicyItem {
-    states: {
-        status: PolicyStatus
-        reason: string
-        created: string
-    }[]
+    // TODO: states
+    // states: {
+    //     status: PolicyStatus
+    //     reason: string
+    //     created: string
+    // }[]
     status: string
 }

@@ -15,7 +15,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse): Observable<never> {
     // TODO: handle errors
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -34,7 +34,7 @@ export class ApiService {
     }
   }
 
-  private request<T>(method: string, path: string, body?: T) {
+  private request<T>(method: string, path: string, body?: T): Observable<T> {
     return this.http.request<T>(method, `${host}/${path}`, { body })
       .pipe(catchError(this.handleError));
   }
@@ -43,7 +43,7 @@ export class ApiService {
     return this.request<T>('GET', path);
   }
 
-  post<T>(path: string, body: T) {
-    return this.request('POST', path, body);
+  post<T>(path: string, body: T): Observable<T> {
+    return this.request<T>('POST', path, body);
   }
 }

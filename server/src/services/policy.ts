@@ -15,21 +15,29 @@ interface PolicyData {
     'updated': string
 }
 
+function toModel(data: PolicyData): PolicyItem {
+    const states = data.states.sort((a, b) => a.created.localeCompare(b.created))
+    const listItem: PolicyListItem = {
+        id: data.id,
+        policyNumber: data.number,
+        annualPremium: data.annual_premium,
+        effectiveDate: data.effective_date,
+        // TODO: states
+        // states: states,
+        status: states.length ? states[states.length - 1].status : ''
+    }
+    return listItem
+}
+
 export default {
     async list() {
-        const items = await db.manyOrNone<PolicyData>('SELECT * FROM "Policy"')
-        return items.map(item => {
-            const states = item.states.sort((a, b) => a.created.localeCompare(b.created))
-            const listItem: PolicyListItem = {
-                id: item.id,
-                policyNumber: item.number,
-                annualPremium: item.annual_premium,
-                effectiveDate: item.effective_date,
-                states: states,
-                status: states.length ? states[states.length - 1].status : ''
-            }
-            return listItem
-        })
+        const data = await db.manyOrNone<PolicyData>('SELECT * FROM "Policy"')
+        return data.map(toModel)
+    },
+
+    async get(id: number) {
+        const data = await db.oneOrNone<PolicyData>('SELECT * FROM "Policy" WHERE id = $1', [id])
+        return data ? toModel(data) : null
     },
 
     async create(item: PolicyItem) {

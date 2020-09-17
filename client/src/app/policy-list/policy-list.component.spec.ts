@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -14,7 +15,14 @@ describe('PolicyListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MatInputModule, MatPaginatorModule, MatTableModule, NoopAnimationsModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        MatInputModule,
+        MatPaginatorModule,
+        MatTableModule,
+        NoopAnimationsModule
+      ],
       providers: [ApiService],
       declarations: [ PolicyListComponent ]
     })

@@ -4,12 +4,18 @@ import { policy } from '../services'
 
 const route = express()
 
-route.get('', async (req, res) => {
+route.get('/', async (req, res) => {
     const data = await policy.list()
     res.send(data)
 })
 
-route.post('', async (req, res) => {
+route.get('/:id', async (req, res) => {
+    const id = req.params.id
+    const data = await policy.get(+id)
+    res.send(data)
+})
+
+route.post('/', async (req, res) => {
     if (!req.body) {
         return res.status(400).send({ message: 'Missing body' })
     }
@@ -25,7 +31,7 @@ route.post('', async (req, res) => {
     }
 })
 
-route.delete(':id', async (req, res) => {
+route.delete('/:id', async (req, res) => {
     const id = req.params.id
     await policy.delete(+id)
     res.send({})
