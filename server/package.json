@@ -1,5 +1,5 @@
 {
-  "name": "policy-project",
+  "name": "server",
   "author": "André Werlang",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,6 @@
     "start": "node ./build",
     "predev": "tsc; tsc -w &",
     "dev": "DEBUG=http nodemon --watch build ./build",
-    "lint": "eslint src/**/*",
     "test": "jest",
     "test:dev": "jest --watch"
   },

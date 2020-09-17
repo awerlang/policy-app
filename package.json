@@ -1,0 +1,18 @@
+{
+  "name": "policy-project",
+  "private": true,
+  "scripts": {
+    "test": "jest --watch",
+    "test:ci": "jest --runInBand"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/awerlang/policy-app.git"
+  },
+  "author": "André Werlang",
+  "devDependencies": {
+    "eslint": "^7.9.0",
+    "jest": "^26.4.2",
+    "jest-runner-eslint": "^0.10.0"
+  }
+}
