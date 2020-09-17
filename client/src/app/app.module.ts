@@ -18,10 +18,12 @@ import { AppComponent } from './app.component';
 import { PolicyComponent } from './policy/policy.component';
 import { ApiService } from './services/api.service';
 import { PolicyListComponent } from './policy-list/policy-list.component';
+import { ClickableDirective } from './components/clickable.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ClickableDirective,
     PolicyComponent,
     PolicyListComponent
   ],
