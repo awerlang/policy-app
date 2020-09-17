@@ -1,21 +1,26 @@
 import { policy } from '../services'
 
+const baseNumber = 100000
 const total = 50
+const annualPremiumRange: [number, number] = [500, 1500]
 
-const effectiveDate = new Date()
+main()
 
-let done = 0
+function main() {
+    const effectiveDate = new Date()
+    let done = 0
 
-for (let i = 0; i < total; i++) {
-    policy.create({
-        policyNumber: `A-0000${i + 110}`,
-        annualPremium: random(500, 1500),
-        effectiveDate: effectiveDate.toISOString()
-    }).then(() => {
-        done++
-        console.log('Done:', done, 'records')
-    })
-    effectiveDate.setHours(effectiveDate.getHours() + random(6, 24 * 7))
+    for (let i = 0; i < total; i++) {
+        policy.create({
+            policyNumber: `A-${baseNumber + i}`,
+            annualPremium: random(...annualPremiumRange),
+            effectiveDate: effectiveDate.toISOString()
+        }).then(() => {
+            done++
+            console.log('Done:', done, 'records')
+        })
+        effectiveDate.setHours(effectiveDate.getHours() + random(6, 24 * 7))
+    }
 }
 
 function random(min: number, max: number) {
