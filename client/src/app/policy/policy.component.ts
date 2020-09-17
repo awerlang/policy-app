@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { mergeMap } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
+import { mergeMap, mapTo, defaultIfEmpty } from 'rxjs/operators';
 
 import { PolicyService } from '../services/policy.service';
+import { ActiveComponent } from '../components/active-component.service';
 
 interface ApiError {
   message: string
@@ -15,7 +17,7 @@ interface ApiError {
   templateUrl: './policy.component.html',
   styleUrls: ['./policy.component.scss']
 })
-export class PolicyComponent implements OnInit {
+export class PolicyComponent implements OnInit, ActiveComponent {
 
   constructor(
     private route: ActivatedRoute,
@@ -46,6 +48,20 @@ export class PolicyComponent implements OnInit {
       })
   }
 
+  canDeactivate(): Observable<boolean> {
+    if (!this.policyForm.dirty) {
+      return of(true)
+    }
+
+    const bar = this.snackBar.open(
+      `This policy has pending changes. Do you want to discard them?`, 'Yes, Discard',
+      {
+        duration: 5000,
+        verticalPosition: 'top'
+      })
+    return bar.onAction().pipe(mapTo(true), defaultIfEmpty(false))
+  }
+
   onSubmit(): void {
     if (!this.policyForm.valid) {
       return
@@ -65,7 +81,7 @@ export class PolicyComponent implements OnInit {
   onDelete(): void {
     const policyNumber: number = this.fields.policyNumber.value
     const bar = this.snackBar.open(
-      `Are you sure you want to delete policy ${policyNumber}?`, 'Yes, Delete',
+      `Do you want to delete policy ${policyNumber}?`, 'Yes, Delete',
       {
         duration: 5000,
         verticalPosition: 'top'

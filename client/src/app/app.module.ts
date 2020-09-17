@@ -19,6 +19,7 @@ import { PolicyComponent } from './policy/policy.component';
 import { ApiService } from './services/api.service';
 import { PolicyListComponent } from './policy-list/policy-list.component';
 import { ClickableDirective } from './components/clickable.directive';
+import { CanDeactivateRouteService } from './can-deactivate-route.service';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ClickableDirective } from './components/clickable.directive';
   ],
   providers: [
     ApiService,
+    CanDeactivateRouteService,
   ],
   bootstrap: [AppComponent]
 })
