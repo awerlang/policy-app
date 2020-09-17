@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -19,6 +20,7 @@ describe('PolicyComponent', () => {
       imports: [
         ReactiveFormsModule,
         HttpClientTestingModule,
+        RouterTestingModule,
         MatSnackBarModule,
         MatInputModule,
         MatDatepickerModule,
@@ -27,8 +29,7 @@ describe('PolicyComponent', () => {
       ],
       providers: [ApiService],
       declarations: [PolicyComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   });
 
   beforeEach(() => {

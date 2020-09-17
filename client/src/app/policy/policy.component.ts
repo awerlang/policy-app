@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { PolicyItem } from 'src/shared/types';
@@ -19,6 +19,7 @@ export class PolicyComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private snackBar: MatSnackBar,
     private api: PolicyService
   ) { }
@@ -50,6 +51,9 @@ export class PolicyComponent implements OnInit {
       return
     }
     this.api.save(this.policyForm.value).subscribe({
+      next: () => {
+        this.router.navigate(['policies'])
+      },
       error: (error: ApiError) => {
         this.snackBar.open(error.message, undefined, {
           duration: 4000,
