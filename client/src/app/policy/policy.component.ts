@@ -29,21 +29,17 @@ export class PolicyComponent implements OnInit, ActiveComponent {
   fields = {
     id: new FormControl(),
     policyNumber: new FormControl(),
-    status: new FormControl({ value: 'New', disabled: true }),
+    status: new FormControl({ value: null, disabled: true }),
     effectiveDate: new FormControl(),
     annualPremium: new FormControl(),
   }
   policyForm = new FormGroup(this.fields)
 
   ngOnInit(): void {
-    const tomorrow = new Date()
-    tomorrow.setDate(tomorrow.getDate() + 1)
-    this.fields.effectiveDate.setValue(tomorrow)
-
     this.route.data
       .subscribe({
         next: ({ policy }) => {
-          this.policyForm.setValue(policy)
+          this.policyForm.patchValue(policy)
         },
       })
   }
