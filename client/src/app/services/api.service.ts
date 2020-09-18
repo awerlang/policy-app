@@ -34,7 +34,9 @@ export class ApiService {
       console.error('An error occurred:', error.error.message);
 
       // Return an observable with a user-facing error message.
-      return throwError('Something bad happened; please try again later.');
+      return throwError({ message: 'Something bad happened; please try again later.' });
+    } else if (error.status === 0) {
+      return throwError({ message: 'Could not reach network. No internet?' });
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
@@ -42,7 +44,7 @@ export class ApiService {
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
 
-      return throwError(error.error);
+      return throwError({ message: error.message });
     }
   }
 
