@@ -58,6 +58,10 @@ export class PolicyComponent implements OnInit, ActiveComponent {
     return bar.onAction().pipe(mapTo(true), defaultIfEmpty(false))
   }
 
+  isEdit(): boolean {
+    return this.fields.id.value != null
+  }
+
   onSubmit(): void {
     if (!this.policyForm.valid) {
       return
