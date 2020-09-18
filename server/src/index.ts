@@ -12,18 +12,8 @@ const app = express()
 app.use(helmet())
 app.use(express.json())
 
-app.use(async (req, res, next) => {
-    // FIXME: improve CORS for development
-    if (process.env.NODE_ENV !== 'production') {
-        res.header('Access-Control-Allow-Origin', '*')
-        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-        res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE')
-    }
-    next()
-})
-
 app.use('/', home)
-app.use('/policy', policy)
+app.use('/api/policy', policy)
 
 app.listen(port, () => {
     logger(`Example app listening at http://localhost:${port}`)

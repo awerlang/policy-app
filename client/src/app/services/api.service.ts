@@ -3,10 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators'
 
-import { environment } from 'src/environments/environment';
-
-// FIXME: url for development
-const host = environment.production ? '' : 'http://localhost:3000'
+const host = ''
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +32,7 @@ export class ApiService {
   }
 
   private request<T>(method: string, path: string, body?: T): Observable<T> {
-    return this.http.request<T>(method, `${host}/${path}`, { body })
+    return this.http.request<T>(method, `${host}/api/${path}`, { body })
       .pipe(catchError(this.handleError));
   }
 
