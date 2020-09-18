@@ -12,18 +12,18 @@ export class PolicyService {
   constructor(private api: ApiService) { }
 
   getPolicies(): Observable<PolicyItem> {
-    return this.api.get<PolicyItem>(`policy`)
+    return this.api.get<PolicyItem>('policy')
   }
 
   getPolicy(id: number): Observable<PolicyListItem> {
-    return this.api.get<PolicyListItem>(`policy/${id}`)
+    return this.api.get<PolicyListItem>('policy', id)
   }
 
   save(policy: PolicyItem): Observable<PolicyItem> {
     return this.api.post('policy', policy)
   }
 
-  delete(policy: PolicyItem): Observable<PolicyItem> {
-    return this.api.delete(`policy/${policy.id}`)
+  delete(id: number): Observable<PolicyItem> {
+    return this.api.delete('policy', id)
   }
 }

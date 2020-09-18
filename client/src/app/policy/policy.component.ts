@@ -75,6 +75,7 @@ export class PolicyComponent implements OnInit, ActiveComponent {
   }
 
   onDelete(): void {
+    // FIXME: policy number could have been changed
     const policyNumber: number = this.fields.policyNumber.value
     const bar = this.snackBar.open(
       `Do you want to delete policy ${policyNumber}?`, 'Yes, Delete',
@@ -82,7 +83,7 @@ export class PolicyComponent implements OnInit, ActiveComponent {
         duration: 5000,
         verticalPosition: 'top'
       })
-    bar.onAction().pipe(mergeMap(() => this.api.delete(this.policyForm.value)))
+    bar.onAction().pipe(mergeMap(() => this.api.delete(this.fields.id.value)))
       .subscribe({
         next: () => {
           this.router.navigate(['policies'])

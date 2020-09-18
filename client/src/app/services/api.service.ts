@@ -5,6 +5,21 @@ import { catchError } from 'rxjs/operators'
 
 const host = ''
 
+type PathComponent = string | number
+type Path = [string, ...PathComponent[]]
+
+function mountPath(path: Path): string {
+  path.forEach((value, index) => {
+    switch (value) {
+      case '':
+      case null:
+      case undefined:
+        throw new Error(`Path component #${index} is empty`)
+    }
+  })
+  return path.join('/')
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -31,20 +46,26 @@ export class ApiService {
     }
   }
 
-  private request<T>(method: string, path: string, body?: T): Observable<T> {
-    return this.http.request<T>(method, `${host}/api/${path}`, { body })
+  private request<T, U = unknown>(method: string, path: Path, body?: U): Observable<T> {
+    const pathString = mountPath(path)
+    return this.http.request<T>(method, `${host}/api/${pathString}`, { body })
       .pipe(catchError(this.handleError));
   }
 
-  get<T>(path: string): Observable<T> {
+  get<T>(...path: Path): Observable<T> {
     return this.request<T>('GET', path);
   }
 
-  post<T>(path: string, body: T): Observable<T> {
+  post<T, U>(path: string, body: U): Observable<T>
+  post<T, U>(path1: string, path2: PathComponent, body: U): Observable<T>
+  post<T, U>(path1: string, path2: PathComponent, path3: PathComponent, body: U): Observable<T>
+  post<T, U, S extends PathComponent[]>(...args: [...S, U]): Observable<T> {
+    const body = args.pop()
+    const path = args.slice() as Path
     return this.request<T>('POST', path, body);
   }
 
-  delete<T>(path: string): Observable<T> {
+  delete<T>(...path: Path): Observable<T> {
     return this.request<T>('DELETE', path);
   }
 }
