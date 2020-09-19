@@ -3,16 +3,18 @@ import { Resolve, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@a
 import { Observable, EMPTY, of } from 'rxjs';
 import { take, mergeMap } from 'rxjs/operators';
 
-import { PolicyListItem } from 'src/shared/types';
+import { PolicyResolve } from '../policy/policy.resolve';
 import { PolicyService } from './policy.service';
+
+type ResolvedType = PolicyResolve['policy']
 
 @Injectable({
   providedIn: 'root'
 })
-export class PolicyResolverService implements Resolve<Partial<PolicyListItem>> {
+export class PolicyResolverService implements Resolve<ResolvedType> {
   constructor(private cs: PolicyService, private router: Router) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Partial<PolicyListItem>> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ResolvedType> {
     const id = route.paramMap.get('id') ?? '';
     if (!id) {
       const tomorrow = new Date()

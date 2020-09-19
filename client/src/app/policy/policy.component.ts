@@ -7,6 +7,7 @@ import { mergeMap, mapTo, defaultIfEmpty } from 'rxjs/operators';
 
 import { PolicyService } from '../services/policy.service';
 import { ActiveComponent } from '../components/active-component.service';
+import { PolicyResolve } from './policy.resolve';
 
 interface ApiError {
   message: string
@@ -36,7 +37,7 @@ export class PolicyComponent implements OnInit, ActiveComponent {
   policyForm = new FormGroup(this.fields)
 
   ngOnInit(): void {
-    this.route.data
+    (this.route.data as Observable<PolicyResolve>)
       .subscribe({
         next: ({ policy }) => {
           this.policyForm.patchValue(policy)
