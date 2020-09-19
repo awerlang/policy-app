@@ -10,7 +10,7 @@ describe('GET /', function () {
             .expect(302)
             .end(function (err, res) {
                 if (err) return done(err)
-                expect(res.get('location')).toBe('index.html')
+                expect(res.get('location')).toBe('/index.html')
                 done()
             })
     })
