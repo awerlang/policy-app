@@ -2,8 +2,8 @@
   "name": "policy-project",
   "private": true,
   "scripts": {
-    "test": "jest --watch",
-    "test:ci": "jest --runInBand"
+    "start": "NODE_ENV=production node dist",
+    "test": "jest --runInBand"
   },
   "repository": {
     "type": "git",

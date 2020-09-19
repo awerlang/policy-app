@@ -11,6 +11,11 @@ server:
 client:
 	cd client && ng build --prod
 
-.PHONY: run
-run:
-	NODE_ENV=production node dist
+.PHONY: start
+start:
+	cd server && npm start &
+	cd client && npm start
+
+.PHONY: test
+test:
+	npx jest --watch

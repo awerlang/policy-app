@@ -3,13 +3,9 @@
   "author": "André Werlang",
   "main": "index.js",
   "scripts": {
-    "prebuild": "npm run lint",
     "build": "tsc",
-    "start": "node ./build",
-    "predev": "tsc; tsc -w &",
-    "dev": "DEBUG=http nodemon --watch build ./build",
-    "test": "jest",
-    "test:dev": "jest --watch"
+    "start": "tsc; tsc -w & DEBUG=http nodemon --watch build --delay 1 ./build",
+    "test": "jest"
   },
   "dependencies": {
     "debug": "^4.1.1",
