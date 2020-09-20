@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { PolicyListItem } from 'src/shared/types';
-import { ApiService } from '../services/api.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-policy-list',

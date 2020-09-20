@@ -5,8 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, Observable } from 'rxjs';
 import { mergeMap, mapTo, defaultIfEmpty } from 'rxjs/operators';
 
-import { PolicyService } from '../services/policy.service';
-import { ActiveComponent } from '../components/active-component.service';
+import { ActiveComponent } from 'src/app/components/active-component.service';
+import { PolicyService } from '../../services/policy.service';
 import { PolicyResolve } from './policy.resolve';
 
 interface ApiError {
@@ -24,7 +24,7 @@ export class PolicyComponent implements OnInit, ActiveComponent {
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
-    private api: PolicyService
+    private api: PolicyService,
   ) { }
 
   fields = {

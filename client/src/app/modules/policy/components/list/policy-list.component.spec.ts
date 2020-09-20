@@ -7,7 +7,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 
 import { PolicyListComponent } from './policy-list.component';
-import { ApiService } from '../services/api.service';
+import { ApiService } from 'src/app/services/api.service';
 
 describe('PolicyListComponent', () => {
   let component: PolicyListComponent;

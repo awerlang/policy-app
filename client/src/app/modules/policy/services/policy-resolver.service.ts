@@ -3,7 +3,7 @@ import { Resolve, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@a
 import { Observable, EMPTY, of } from 'rxjs';
 import { take, mergeMap } from 'rxjs/operators';
 
-import { PolicyResolve } from '../policy/policy.resolve';
+import { PolicyResolve } from '../components/item/policy.resolve';
 import { PolicyService } from './policy.service';
 
 type ResolvedType = PolicyResolve['policy']

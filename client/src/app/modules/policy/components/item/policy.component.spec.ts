@@ -8,8 +8,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { ApiService } from 'src/app/services/api.service';
 import { PolicyComponent } from './policy.component';
-import { ApiService } from '../services/api.service';
 
 describe('PolicyComponent', () => {
   let component: PolicyComponent;
