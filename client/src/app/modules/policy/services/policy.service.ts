@@ -11,8 +11,8 @@ export class PolicyService {
 
   constructor(private api: ApiService) { }
 
-  getPolicies(): Observable<PolicyItem> {
-    return this.api.get<PolicyItem>('policy')
+  getPolicies(): Observable<PolicyListItem[]> {
+    return this.api.get<PolicyListItem[]>('policy')
   }
 
   getPolicy(id: number): Observable<PolicyListItem> {

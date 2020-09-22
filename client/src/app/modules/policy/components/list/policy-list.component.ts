@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { PolicyListItem } from 'src/shared/types';
-import { ApiService } from 'src/app/services/api.service';
+import { PolicyService } from '../../services/policy.service';
 
 @Component({
   selector: 'app-policy-list',
@@ -19,11 +19,11 @@ export class PolicyListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   @ViewChild(MatSort) sort: MatSort | null = null;
 
-  constructor(private api: ApiService) {
+  constructor(private api: PolicyService) {
   }
 
   ngOnInit(): void {
-    this.api.get<PolicyListItem[]>('policy').subscribe(value => {
+    this.api.getPolicies().subscribe(value => {
       this.dataSource = new MatTableDataSource(value);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
