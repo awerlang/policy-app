@@ -8,16 +8,13 @@ const host = ''
 type PathComponent = string | number
 type Path = [string, ...PathComponent[]]
 
-function mountPath(path: Path): string {
-  path.forEach((value, index) => {
-    switch (value) {
-      case '':
-      case null:
-      case undefined:
-        throw new Error(`Path component #${index} is empty`)
-    }
-  })
-  return path.join('/')
+function mountPath(path: Path): string | Error {
+  const invalid = path.some(value => ['', NaN, null, undefined].includes(value))
+  if (invalid) {
+    return new Error('Path contains invalid component')
+  }
+  const pathString = path.join('/')
+  return `${host}/api/${pathString}`;
 }
 
 @Injectable({
@@ -50,7 +47,10 @@ export class ApiService {
 
   private request<T, U = unknown>(method: string, path: Path, body?: U): Observable<T> {
     const pathString = mountPath(path)
-    return this.http.request<T>(method, `${host}/api/${pathString}`, { body })
+    if (pathString instanceof Error) {
+      return throwError(pathString)
+    }
+    return this.http.request<T>(method, pathString, { body })
       .pipe(catchError(this.handleError));
   }
 
