@@ -39,52 +39,50 @@ function handleError<T>(result: Promise<T>): Promise<T | ClientError | ServerErr
     })
 }
 
-export default {
-    async list() {
-        const data = await db.manyOrNone<PolicyData>('SELECT * FROM "Policy"')
-        return data.map(toModel)
-    },
+export async function list() {
+    const data = await db.manyOrNone<PolicyData>('SELECT * FROM "Policy"')
+    return data.map(toModel)
+}
 
-    async get(id: number) {
-        const data = await db.oneOrNone<PolicyData>('SELECT * FROM "Policy" WHERE id = $1', [id])
-        return data ? toModel(data) : new ClientError('Policy not found')
-    },
+export async function get(id: number) {
+    const data = await db.oneOrNone<PolicyData>('SELECT * FROM "Policy" WHERE id = $1', [id])
+    return data ? toModel(data) : new ClientError('Policy not found')
+}
 
-    async create(item: PolicyItem) {
-        const now = new Date().toISOString()
-        const states = [
-            {
-                status: 'active',
-                reason: 'Policy Created',
-                created: now,
-                updated: now
-            }
-        ]
-        const result = db.one<PolicyData>(
-            'INSERT INTO "Policy"(number, annual_premium, effective_date, states, created, updated) VALUES ($1, $2, $3, $4:json, $5, $6) RETURNING id',
-            [item.policyNumber, item.annualPremium, item.effectiveDate, states, now, now])
-        return handleError(result)
-    },
+export async function create(item: PolicyItem) {
+    const now = new Date().toISOString()
+    const states = [
+        {
+            status: 'active',
+            reason: 'Policy Created',
+            created: now,
+            updated: now
+        }
+    ]
+    const result = db.one<PolicyData>(
+        'INSERT INTO "Policy"(number, annual_premium, effective_date, states, created, updated) VALUES ($1, $2, $3, $4:json, $5, $6) RETURNING id',
+        [item.policyNumber, item.annualPremium, item.effectiveDate, states, now, now])
+    return handleError(result)
+}
 
-    async update(item: PolicyItem) {
-        const now = new Date().toISOString()
-        const states = [
-            {
-                status: 'active',
-                reason: 'Policy Updated',
-                created: now,
-                updated: now
-            }
-        ]
-        const result = db.one<PolicyData>(
-            'UPDATE "Policy" SET number = $1, annual_premium = $2, effective_date = $3, states = states || $4:json, updated = $5 WHERE id = $6 RETURNING id',
-            [item.policyNumber, item.annualPremium, item.effectiveDate, states, now, item.id])
-        return handleError(result)
-    },
+export async function update(item: PolicyItem) {
+    const now = new Date().toISOString()
+    const states = [
+        {
+            status: 'active',
+            reason: 'Policy Updated',
+            created: now,
+            updated: now
+        }
+    ]
+    const result = db.one<PolicyData>(
+        'UPDATE "Policy" SET number = $1, annual_premium = $2, effective_date = $3, states = states || $4:json, updated = $5 WHERE id = $6 RETURNING id',
+        [item.policyNumber, item.annualPremium, item.effectiveDate, states, now, item.id])
+    return handleError(result)
+}
 
-    async delete(id: number) {
-        return db.one(
-            'DELETE FROM "Policy" WHERE id = $1 RETURNING id',
-            [id])
-    }
+export async function remove(id: number) {
+    return db.one(
+        'DELETE FROM "Policy" WHERE id = $1 RETURNING id',
+        [id])
 }

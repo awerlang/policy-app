@@ -1,1 +1,1 @@
-export { default as policy } from './policy'
+export * as policy from './policy'

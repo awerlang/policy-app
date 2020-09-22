@@ -33,7 +33,7 @@ route.post('/', async (req, res) => {
 
 route.delete('/:id', async (req, res) => {
     const id = req.params.id
-    await policy.delete(+id)
+    await policy.remove(+id)
     res.send({})
 })
 
