@@ -18,4 +18,4 @@ start:
 
 .PHONY: test
 test:
-	npx jest --watch
+	npx jest --watch --detectOpenHandles

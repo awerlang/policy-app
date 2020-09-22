@@ -19,3 +19,6 @@ rules:
   space-before-function-paren:
     - error
     - named: ignore
+  comma-dangle:
+    - error
+    - only-multiline
