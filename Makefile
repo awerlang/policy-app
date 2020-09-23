@@ -18,4 +18,4 @@ start:
 
 .PHONY: test
 test:
-	npx jest --watch --detectOpenHandles
+	@make --no-print-directory -C test 2>/dev/null
