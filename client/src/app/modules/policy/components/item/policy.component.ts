@@ -51,7 +51,7 @@ export class PolicyComponent implements OnInit, ActiveComponent {
     }
 
     const bar = this.snackBar.open(
-      `This policy has pending changes. Do you want to discard them?`, 'Yes, Discard',
+      'This policy has pending changes. Do you want to discard them?', 'Yes, Discard',
       {
         duration: 5000,
         verticalPosition: 'top'
