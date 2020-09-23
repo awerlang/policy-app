@@ -18,4 +18,8 @@ start:
 
 .PHONY: test
 test:
-	@make --no-print-directory -C test 2>/dev/null
+	@make --no-print-directory -C containers test 2>/dev/null
+
+.PHONY: run
+run:
+	@make --no-print-directory -C containers run 2>/dev/null
