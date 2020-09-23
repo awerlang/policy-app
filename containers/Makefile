@@ -6,7 +6,7 @@ all: test
 
 .PHONY: pod
 pod:
-	@podman pod create --name=$(POD) --publish 5432:80 --publish 3000:3000 || :
+	@podman pod start $(POD) || podman pod create --name=$(POD) --publish 5432:80 --publish 3000:3000 || :
 
 .PHONY: db
 db: pod

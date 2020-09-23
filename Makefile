@@ -23,3 +23,7 @@ test:
 .PHONY: run
 run:
 	@make --no-print-directory -C containers run 2>/dev/null
+
+.PHONY: clean
+clean:
+	@make --no-print-directory -C containers clean 2>/dev/null
