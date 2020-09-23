@@ -1,13 +1,8 @@
-import express from 'express'
 import supertest from 'supertest'
 
 import { db } from '../data'
 import { PolicyListItem } from '../shared/types'
-import policy from './policy'
-
-const app = express()
-app.use(express.json())
-app.use(policy)
+import app from './policy'
 
 const request = supertest(app)
 

@@ -4,6 +4,7 @@ import { ClientError } from '../util/errors'
 import { policy } from '../services'
 
 const route = express()
+route.use(express.json())
 
 route.get('/', async (req, res) => {
     const result = await policy.list()
