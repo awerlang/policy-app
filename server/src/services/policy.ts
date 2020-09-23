@@ -40,7 +40,7 @@ function handleError<T>(result: Promise<T>): Promise<T | ClientError | ServerErr
 }
 
 export async function list() {
-    const data = await db.manyOrNone<PolicyData>('SELECT * FROM "Policy"')
+    const data = await db.manyOrNone<PolicyData>('SELECT * FROM "Policy" ORDER BY updated desc')
     return data.map(toModel)
 }
 

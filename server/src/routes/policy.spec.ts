@@ -14,14 +14,18 @@ const request = supertest(app)
 describe('GET /', function () {
     const ids: { id: number }[] = []
 
-    beforeAll(async () => {
+    async function insertPolicy(policyNumber: string, annualPremium: number, effectiveDate: Date) {
         const now = new Date().toISOString()
+        ids.push(await db.one(`INSERT INTO "Policy"(number, annual_premium, effective_date, states, created, updated) VALUES ('${policyNumber}', ${annualPremium}, '${effectiveDate.toISOString()}', '[]', '${now}', '${now}') RETURNING id`))
+    }
+
+    beforeAll(async () => {
         await db.any('DELETE FROM "Policy"')
-        ids.push(await db.one(`INSERT INTO "Policy"(number, annual_premium, effective_date, states, created, updated) VALUES ('A-100100', 1200, '2020-09-22T00:00:00.000Z', '[]', '${now}', '${now}') RETURNING id`))
-        ids.push(await db.one(`INSERT INTO "Policy"(number, annual_premium, effective_date, states, created, updated) VALUES ('A-100101', 1500, '2020-10-07T00:00:00.000Z', '[]', '${now}', '${now}') RETURNING id`))
+        await insertPolicy('A-100100', 1200, new Date('2020-09-22T00:00:00.000Z'))
+        await insertPolicy('A-100101', 1500, new Date('2020-10-07T00:00:00.000Z'))
     })
 
-    it('returns all policies', async () => {
+    it('returns all policies, last updated first', async () => {
         const res = await request.get('/')
             .set('Accept', 'application/json')
 
@@ -29,16 +33,16 @@ describe('GET /', function () {
         expect(res.body).toStrictEqual([
             {
                 id: expect.anything(),
-                annualPremium: '1200.00' as any,
-                effectiveDate: '2020-09-22T00:00:00.000Z',
-                policyNumber: 'A-100100',
+                annualPremium: '1500.00' as any,
+                effectiveDate: '2020-10-07T00:00:00.000Z',
+                policyNumber: 'A-100101',
                 status: '',
             },
             {
                 id: expect.anything(),
-                annualPremium: '1500.00' as any,
-                effectiveDate: '2020-10-07T00:00:00.000Z',
-                policyNumber: 'A-100101',
+                annualPremium: '1200.00' as any,
+                effectiveDate: '2020-09-22T00:00:00.000Z',
+                policyNumber: 'A-100100',
                 status: '',
             },
         ] as PolicyListItem[])
