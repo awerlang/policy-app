@@ -35,7 +35,7 @@ function handleError<T>(result: Promise<T>): Promise<T | ClientError | ServerErr
         if (/Policy_number_key/.test(reason.message)) {
             return new ClientError('Policy number already taken')
         }
-        return new ServerError('An error ocurred')
+        return new ServerError('An error occurred')
     })
 }
 

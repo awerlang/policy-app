@@ -21,8 +21,8 @@ route.get('/:id', async (req, res) => {
 })
 
 route.post('/', async (req, res) => {
-    if (!req.body) {
-        return res.status(400).send({ message: 'Missing body' })
+    if (!req.body || Object.keys(req.body).length === 0) {
+        return res.status(400).send({ message: 'Missing required data' })
     }
     const item = req.body
     const result = await (item.id ? policy.update(item) : policy.create(item))

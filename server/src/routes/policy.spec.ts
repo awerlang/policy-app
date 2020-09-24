@@ -84,6 +84,18 @@ describe('GET /', function () {
         })
     })
 
+    it('creating a policy with empty data fails', async () => {
+        const res = await request.post('/')
+            .send()
+            .set('Accept', 'application/json')
+
+        expect(res.status).toBe(400)
+        expect(res.get('Content-Type')).toMatch(/json/)
+        expect(res.body).toStrictEqual({
+            message: 'Missing required data'
+        })
+    })
+
     it('creating a policy with existing number fails', async () => {
         const res = await request.post('/')
             .send({
