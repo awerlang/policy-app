@@ -35,7 +35,7 @@ test: database
 				-v $$(pwd)/..:/src \
 				-w /src \
 				--env PG_CONN=postgres://postgres:pass@localhost:5432/policy \
-				node:12 npx jest --watch --detectOpenHandles
+				node:12 npx jest --watch --coverage --detectOpenHandles
 
 .PHONY: run
 run: database
