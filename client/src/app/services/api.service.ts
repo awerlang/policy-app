@@ -41,7 +41,7 @@ export class ApiService {
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
 
-      return throwError({ message: error.message });
+      return throwError({ message: error.error.message });
     }
   }
 

@@ -1,5 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -18,7 +18,7 @@ import { ClickableDirective } from './clickable.directive';
         ClickableDirective,
     ],
     imports: [
-        BrowserModule,
+        CommonModule,
         ReactiveFormsModule,
         MatButtonModule,
         MatDatepickerModule,
@@ -31,7 +31,7 @@ import { ClickableDirective } from './clickable.directive';
         MatTableModule,
     ],
     exports: [
-        BrowserModule,
+        CommonModule,
         ReactiveFormsModule,
         MatButtonModule,
         MatDatepickerModule,

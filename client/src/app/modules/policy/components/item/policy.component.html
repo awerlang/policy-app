@@ -8,7 +8,7 @@
             <td>
                 <mat-form-field class="full-width">
                     <mat-label>Policy number</mat-label>
-                    <input matInput required formControlName="policyNumber">
+                    <input matInput class="policy-number-txt" required formControlName="policyNumber">
                 </mat-form-field>
             </td>
             <td>
@@ -37,7 +37,7 @@
         </tr>
     </table>
     <div class="actions">
-        <button mat-button color="warn" type="button" *ngIf="isEdit()" (click)="onDelete()">Delete</button>
-        <button mat-raised-button color="primary" [disabled]="!policyForm.valid">Save</button>
+        <button mat-button class="delete-btn" color="warn" type="button" *ngIf="isEdit()" (click)="onDelete()">Delete</button>
+        <button mat-raised-button class="save-btn" color="primary" [disabled]="!policyForm.valid">Save</button>
     </div>
 </form>
