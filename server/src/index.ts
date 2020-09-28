@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express'
+import express, { Request, Response } from 'express'
 import debug from 'debug'
 import helmet from 'helmet'
 
@@ -14,7 +14,7 @@ app.use(helmet())
 app.use('/', home)
 app.use('/api/policy', policy)
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, req: Request, res: Response) => {
     // TODO: store non-business errors
     console.log(req.path)
     console.error(err)

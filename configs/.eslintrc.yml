@@ -1,0 +1,29 @@
+env:
+  es2021: true
+  jest: true
+extends:
+  - eslint:recommended
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaVersion: 12
+  sourceType: module
+  project: './tsconfig.json'
+plugins:
+  - '@typescript-eslint'
+rules:
+  '@typescript-eslint/no-dupe-class-members':
+    - error
+  '@typescript-eslint/no-unused-vars':
+    - error
+    - args: none
+  '@typescript-eslint/restrict-template-expressions':
+    - error
+    - allowAny: true
+  '@typescript-eslint/unbound-method':
+    - error
+  no-dupe-class-members:
+    - off
+  no-implicit-coercion:
+    - error
+  no-unused-vars:
+    - off

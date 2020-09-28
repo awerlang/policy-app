@@ -1,0 +1,12 @@
+env:
+  browser: true
+extends:
+  - ../../configs/.eslintrc.yml
+parserOptions:
+  tsconfigRootDir: './client'
+plugins:
+  - '@typescript-eslint/tslint'
+rules:
+  '@typescript-eslint/tslint/config': 
+    - error
+    - "lintFile": "./client/tslint.json"

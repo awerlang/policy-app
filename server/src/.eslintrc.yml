@@ -1,24 +1,6 @@
 env:
-  es2021: true
   node: true
-  jest: true
 extends:
-  - standard
-parser: '@typescript-eslint/parser'
+  - ../../configs/.eslintrc.yml
 parserOptions:
-  ecmaVersion: 12
-  sourceType: module
   tsconfigRootDir: './server'
-  project: './tsconfig.json'
-plugins:
-  - '@typescript-eslint'
-rules:
-  indent:
-    - error
-    - 4
-  space-before-function-paren:
-    - error
-    - named: ignore
-  comma-dangle:
-    - error
-    - only-multiline

@@ -173,37 +173,37 @@ describe('PolicyComponent', () => {
 
       it('notifies errors when saving', () => {
         const snackBar = TestBed.inject(MatSnackBar)
-        jest.spyOn(snackBar, 'open')
+        const snackBarOpen = jest.spyOn(snackBar, 'open')
 
         page.saveBtn.click()
         const req = httpTestingController.expectOne('/api/policy')
         expect(req.request.method).toBe('POST')
         req.flush({ message: 'Some error' }, { status: 400, statusText: 'Bad Request' })
 
-        expect(snackBar.open).toHaveBeenCalledWith('Some error', undefined, { duration: 4000 })
+        expect(snackBarOpen).toHaveBeenCalledWith('Some error', undefined, { duration: 4000 })
       })
 
       it('navigates to policies listing after saving', () => {
         const router = TestBed.inject(Router)
-        jest.spyOn(router, 'navigate')
+        const routerNavigate = jest.spyOn(router, 'navigate')
         page.saveBtn.click()
         const req = httpTestingController.expectOne('/api/policy')
         expect(req.request.method).toBe('POST')
         rootFixture.ngZone?.run(() => req.flush({}))
 
-        expect(router.navigate).toHaveBeenCalledWith(['policies'])
+        expect(routerNavigate).toHaveBeenCalledWith(['policies'])
       })
 
       it('navigates to policies listing after deleting', () => {
         const router = TestBed.inject(Router)
-        jest.spyOn(router, 'navigate')
+        const routerNavigate = jest.spyOn(router, 'navigate')
         page.deleteBtn.click()
         TestBed.inject(MatSnackBar)._openedSnackBarRef?.dismissWithAction()
         const req = httpTestingController.expectOne('/api/policy/1')
         expect(req.request.method).toBe('DELETE')
         rootFixture.ngZone?.run(() => req.flush({}))
 
-        expect(router.navigate).toHaveBeenCalledWith(['policies'])
+        expect(routerNavigate).toHaveBeenCalledWith(['policies'])
       })
     })
   })

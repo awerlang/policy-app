@@ -51,7 +51,7 @@ export class ApiService {
       return throwError(pathString)
     }
     return this.http.request<T>(method, pathString, { body })
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(err => this.handleError(err)));
   }
 
   get<T>(...path: Path): Observable<T> {

@@ -6,7 +6,10 @@ module.exports = {
             "displayName": "lint",
             "runner": "eslint",
             "modulePathIgnorePatterns": ['<rootDir>/dist'],
-            "testMatch": ["<rootDir>/server/**/*.ts"],
+            "testMatch": [
+                "<rootDir>/client/src/**/*.ts",
+                "<rootDir>/server/src/**/*.ts",
+            ],
         },
     ]
 }

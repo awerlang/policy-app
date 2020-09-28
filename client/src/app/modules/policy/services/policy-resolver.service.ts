@@ -25,7 +25,7 @@ export class PolicyResolverService implements Resolve<ResolvedType> {
       })
     }
 
-    return this.cs.getPolicy(+id).pipe(
+    return this.cs.getPolicy(Number(id)).pipe(
       take(1),
       mergeMap(policy => {
         if (policy) {
